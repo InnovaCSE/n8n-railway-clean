@@ -1,18 +1,15 @@
+# Utiliser l'image officielle de n8n
 FROM n8nio/n8n:1.109.2
 
-# Auth uniquement via Basic Auth
-ENV N8N_BASIC_AUTH_ACTIVE=true
-ENV N8N_BASIC_AUTH_USER=Yoann
-ENV N8N_BASIC_AUTH_PASSWORD=Yoann2025!
-ENV N8N_USER_MANAGEMENT_DISABLED=true
+# Définir le dossier de travail pour n8n
+WORKDIR /data
 
-# Config minimale
-ENV N8N_DEFAULT_BINARY_DATA_MODE=filesystem
-ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
-ENV N8N_EXPRESS_TRUST_PROXY=true
-ENV N8N_PROXY_HOPS=1
-ENV N8N_RUNNERS_ENABLED=true
-ENV N8N_BLOCK_ENV_ACCESS_IN_NODE=false
-ENV PORT=5678
+# Volume pour les données persistantes (workflows, credentials, etc.)
+VOLUME /data
 
+# Exposer le port par défaut de n8n
+EXPOSE 5678
+
+# Lancer n8n
 CMD ["n8n"]
+
